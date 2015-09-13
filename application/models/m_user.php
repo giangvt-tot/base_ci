@@ -1,6 +1,6 @@
 <?php
 
-class M_user extends my_model {
+class M_user extends Base_model {
 
     public function setting_table() {
         $this->_table = 'htt_user';

@@ -1,15 +1,14 @@
 <?php
 
-class Demo_ajax extends CI_Controller {
+class Demo_ajax_2 extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
     }
 
     public function index() {
-        $data = $this->input->get();
-//        echo '<pre>';
-//        var_dump($data); exit();
+        $data = $this->input->post();
+//        echo '<pre>';var_dump($data);exit;
         $data_return = array(
             'draw' => $data['draw'],
             'recordsTotal' => 57,
@@ -71,11 +70,10 @@ class Demo_ajax extends CI_Controller {
                 array('', 'yjsdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
                 array('', 'fjjsdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
                 array('', 'fjysdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
-            )
+                
+                ),
         );
-//        echo '<pre>';
-//        var_dump(json_encode($data_return));
-//        exit;
+
         echo json_encode($data_return);
     }
 

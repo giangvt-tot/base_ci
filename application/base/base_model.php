@@ -6,7 +6,7 @@
  * @author: giangvt.sami@gmail.com
  * @version: 1.0.0
  */
-abstract class my_model extends CI_Model {
+abstract class Base_model extends CI_Model {
 
     /**
      * dữ liệu được khai báo từ trong model
@@ -312,7 +312,7 @@ abstract class my_model extends CI_Model {
      * @return Array Mảng các mảng chứa thông tin để tạo form
      */
     function get_key() {
-        
+        return $this->_key;
     }
 
     function get_field_search() {

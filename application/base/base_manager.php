@@ -10,7 +10,7 @@
  * @param: bao gồm các function có nhiệm vụ xuất dữ liệu ra view
  * @param: các function có tiền tố "_function" để kiểm tra điều kiện, ko tương tác trực tiếp với view
  */
-class My_manager extends CI_Controller {
+class Base_manager extends CI_Controller {
 
     /**
      *
@@ -62,6 +62,10 @@ class My_manager extends CI_Controller {
         $this->master_page($head, $header, $left_page, $breadcrumbs, $right_page, $footer);
     }
 
+    public function _setting_left_page() {
+        
+    }
+
     public function _setting_config() {
         //Chạy hàm setting_class() để lấy dữ liệu khai báo từ controller
         $this->setting_class();
@@ -99,9 +103,42 @@ class My_manager extends CI_Controller {
         return $data_return;
     }
 
+    public function _get_left_page_data($data = array()) {
+        $data[] = array(
+            'text' => 'Dashboard',
+            'icon' => 'fa-tachometer',
+            'url' => site_url('admin'),
+            'class' => 'index'
+        );
+        $data[] = array(
+            'text' => 'User',
+            'icon' => 'fa-user',
+            'url' => site_url('admin'),
+            'class' => 'user',
+            'child' => array(
+                array(
+                    'text' => 'User',
+                    'url' => site_url('admin/user'),
+                    'method' => 'index'
+                ),
+                array(
+                    'text' => 'User',
+                    'url' => site_url('admin/user/demo'),
+                    'method' => 'demo'
+                )
+            )
+        );
+        $data_return['data'] = $data;
+        return $data_return;
+    }
+
     public function get_left_page($data = array()) {
         $data_return = $this->load->view($this->_view . 'left_page', $data, TRUE);
         return $data_return;
+    }
+
+    public function _get_right_page_data($data = array()) {
+        return $data;
     }
 
     public function get_right_page($data = array()) {

@@ -93,7 +93,7 @@
             "serverSide": true,
 //            "ajax": "http://localhost/hoc-thanh-tai/admin/demo_ajax",
             "ajax": {
-                "url": "http://localhost/hoc-thanh-tai/admin/demo_ajax",
+                "url": "http://localhost/hoc-thanh-tai/admin/demo_ajax_2",
                 "type": "POST"
             },
             "columns": [
@@ -103,7 +103,7 @@
                 {"data": "office"},
                 {"data": "start_date"},
                 {"data": "salary"},
-                {"data": "action"},
+                {"data": "action"}
             ]
         });
         //oTable1.fnAdjustColumnSizing();

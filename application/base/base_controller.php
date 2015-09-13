@@ -9,7 +9,7 @@
  * @param: bao gồm các function xử lý các tính toán logic
  * @param: thường dùng để quản lý, tương tác với database
  */
-abstract class My_controller extends My_manager {
+abstract class Base_controller extends Base_manager {
 
     /**
      * Mảng config setting được dùng trong các hàm quản lý
@@ -74,7 +74,7 @@ abstract class My_controller extends My_manager {
     public function index() {
         $head = $this->get_head();
         $header = $this->get_header();
-        $left_page = $this->get_left_page();
+        $left_page = $this->get_left_page($this->_get_left_page_data());
         $right_page = $this->get_right_page($this->setting);
         $breadcrumbs = $this->get_breadcrumbs();
         $footer = $this->get_footer();
@@ -86,10 +86,6 @@ abstract class My_controller extends My_manager {
     }
 
     public function _get_header_data() {
-        
-    }
-
-    public function _get_left_page_data() {
         
     }
 
@@ -108,8 +104,10 @@ abstract class My_controller extends My_manager {
         return $data_return['data'];
     }
 
-    public function add_colum_action() {
-        
+    public function _add_colum_action($data = array()) {
+        $data['check_box'] = true;
+        $data['action'] = true;
+        return $data;
     }
 
     public function ajax_list_data() {

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends Base_controller {
+class User extends Base_controller {
 
     public function __construct() {
         parent::__construct();
@@ -25,9 +25,4 @@ class Index extends Base_controller {
             'field_rule' => array()
         );
     }
-
-    public function index() {
-        parent::index();
-    }
-
 }

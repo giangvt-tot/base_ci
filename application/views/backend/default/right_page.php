@@ -27,7 +27,7 @@
 
             <!-- div.dataTables_borderWrap -->
             <div>
-                <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                <table id="dynamic-table" class="table table-striped table-bordered table-hover display">
                     <thead>
                         <tr>
                             <th class="center">
