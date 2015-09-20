@@ -10,13 +10,13 @@
     <ul class="breadcrumb">
         <li>
             <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="#">Home</a>
+            <a href="<?php echo site_url('admin'); ?>">Home</a>
         </li>
 
         <li>
-            <a href="#"><?php echo ucfirst($this->_class); ?></a>
+            <a href="#"><?php echo ucfirst($text_class); ?></a>
         </li>
-        <li class="active"><?php echo ucfirst($this->_method); ?></li>
+        <li class="active"><?php echo ucfirst($text_method); ?></li>
     </ul><!-- /.breadcrumb -->
 
     <!-- #section:basics/content.searchbox -->

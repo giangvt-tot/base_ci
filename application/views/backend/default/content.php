@@ -3,7 +3,7 @@
     <!-- /section:settings.box -->
     <div class="page-header">
         <h1>
-            <?php echo strtoupper($this->_class); ?>
+            <?php echo ($this->_title); ?>
             <small>
                 <i class="ace-icon fa fa-angle-double-right"></i>
                 <?php echo ucfirst($this->_method); ?>

@@ -12,14 +12,14 @@
         <!--content-->
         <div class="main-container" id="main-container">
 
-            <?php echo $left_page; ?>
+            <?php echo $nav; ?>
 
             <!-- /section:basics/sidebar -->
             <div class="main-content">
                 <div class="main-content-inner">
                     <?php echo $breadcrumbs; ?>
 
-                    <?php echo $right_page; ?>
+                    <?php echo $content; ?>
                 </div>
             </div><!-- /.main-content -->
 

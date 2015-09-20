@@ -10,7 +10,32 @@
  * @param: bao gồm các function có nhiệm vụ xuất dữ liệu ra view
  * @param: các function có tiền tố "_function" để kiểm tra điều kiện, ko tương tác trực tiếp với view
  */
-class Base_manager extends CI_Controller {
+abstract class Base_manager extends CI_Controller {
+
+    /**
+     * Mảng config setting được dùng trong các hàm quản lý
+     * Biến này được mô tả chi tiết trong các lớp kế thừa
+     * Cấu trúc mảng:
+     * Array (
+     *      "class"         => "", String: Tên class
+     *      "view"          => "", String: Tên view
+     *      "model"         => "", String: Tên model
+     *      "title"         => "", String: Tiêu đề hiển thị
+     *      'field_table'   => array()    : các cột có trong bảng hiển thị
+     *      'field_form'    => array()    : các trường có trong form insert + view + eidt
+     *      'field_rule'    => array()    : 
+     * )
+     * @var Array
+     */
+    var $setting = Array(
+        'class' => '',
+        'view' => '',
+        'model' => '',
+        'title' => '',
+        'field_table' => array(),
+        'field_form' => array(),
+        'field_rule' => array(),
+    );
 
     /**
      *
@@ -52,17 +77,20 @@ class Base_manager extends CI_Controller {
         $this->_setting_config();
     }
 
+    abstract function setting_class();
+
     public function index() {
+        $data_title = $this->_get_nav_data();
         $head = $this->get_head();
         $header = $this->get_header();
-        $left_page = $this->get_left_page();
-        $right_page = $this->get_right_page();
-        $breadcrumbs = $this->get_breadcrumbs();
+        $nav = $this->get_nav($this->setting);
+        $content = $this->get_content($this->setting);
+        $breadcrumbs = $this->get_breadcrumbs($data_title);
         $footer = $this->get_footer();
-        $this->master_page($head, $header, $left_page, $breadcrumbs, $right_page, $footer);
+        $this->master_page($head, $header, $nav, $breadcrumbs, $content, $footer);
     }
 
-    public function _setting_left_page() {
+    public function _setting_nav() {
         
     }
 
@@ -103,7 +131,7 @@ class Base_manager extends CI_Controller {
         return $data_return;
     }
 
-    public function _get_left_page_data($data = array()) {
+    public function _get_nav_data($data = array()) {
         $data[] = array(
             'text' => 'Dashboard',
             'icon' => 'fa-tachometer',
@@ -111,38 +139,53 @@ class Base_manager extends CI_Controller {
             'class' => 'index'
         );
         $data[] = array(
-            'text' => 'User',
+            'text' => 'Quản lý thành viên',
             'icon' => 'fa-user',
             'url' => site_url('admin'),
             'class' => 'user',
             'child' => array(
                 array(
-                    'text' => 'User',
-                    'url' => site_url('admin/user'),
-                    'method' => 'index'
+                    'text' => 'Đm đm',
+                    'url' => site_url('admin/user/demo'),
+                    'method' => 'demo',
+                    'class_html' => 'e_ajax_link'
                 ),
                 array(
-                    'text' => 'User',
-                    'url' => site_url('admin/user/demo'),
-                    'method' => 'demo'
-                )
+                    'text' => 'Danh sách thành viên',
+                    'url' => site_url('admin/user'),
+                    'method' => 'index',
+                ),
             )
         );
+
+        //Kiểm tra data để in ra breadcrumb
+        foreach ($data as $key => $val) {
+            if ($val['class'] == $this->_class) {
+                $data_return['text_class'] = $val['text'];
+                if (isset($val['child'])) {
+                    foreach ($val['child'] as $key_child => $val_child) {
+                        $data_return['text_method'] = $val_child['method'] == $this->_method ? $val_child['text'] : '';
+                    }
+                }
+            } else {
+                continue;
+            }
+        }
         $data_return['data'] = $data;
         return $data_return;
     }
 
-    public function get_left_page($data = array()) {
-        $data_return = $this->load->view($this->_view . 'left_page', $data, TRUE);
+    public function get_nav($data = array()) {
+        $data_return = $this->load->view($this->_view . 'nav', $data, TRUE);
         return $data_return;
     }
 
-    public function _get_right_page_data($data = array()) {
+    public function _get_content_data($data = array()) {
         return $data;
     }
 
-    public function get_right_page($data = array()) {
-        $data_return = file_exists(APPPATH . 'views/backend/' . $this->setting['view'] . '/right_page.php') ? $this->load->view($this->_view_custom . 'right_page', $data, TRUE) : $this->load->view($this->_view . 'right_page', $data, TRUE);
+    public function get_content($data = array()) {
+        $data_return = file_exists(APPPATH . 'views/backend/' . $this->setting['view'] . '/content.php') ? $this->load->view($this->_view_custom . 'content', $data, TRUE) : $this->load->view($this->_view . 'content', $data, TRUE);
         return $data_return;
     }
 
@@ -156,13 +199,13 @@ class Base_manager extends CI_Controller {
         return $data_return;
     }
 
-    public function master_page($head, $header, $left_page, $breadcrumbs, $right_page, $footer) {
+    public function master_page($head, $header, $nav, $breadcrumbs, $content, $footer) {
         $data = array();
         $data['head'] = $head;
         $data['header'] = $header;
-        $data['left_page'] = $left_page;
+        $data['nav'] = $nav;
         $data['breadcrumbs'] = $breadcrumbs;
-        $data['right_page'] = $right_page;
+        $data['content'] = $content;
         $data['footer'] = $footer;
         $this->load->view($this->_view . 'master_page', $data);
     }

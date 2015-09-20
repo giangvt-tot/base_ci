@@ -11,30 +11,6 @@
  */
 abstract class Base_controller extends Base_manager {
 
-    /**
-     * Mảng config setting được dùng trong các hàm quản lý
-     * Biến này được mô tả chi tiết trong các lớp kế thừa
-     * Cấu trúc mảng:
-     * Array (
-     *      "class"         => "", String: Tên class
-     *      "view"          => "", String: Tên view
-     *      "model"         => "", String: Tên model
-     *      "title"         => "", String: Tiêu đề hiển thị
-     *      'field_table'   => array()    : các cột có trong bảng hiển thị
-     *      'field_form'    => array()    : các trường có trong form insert + view + eidt
-     *      'field_rule'    => array()    : 
-     * )
-     * @var Array
-     */
-    var $setting = Array(
-        'class' => '',
-        'view' => '',
-        'model' => '',
-        'title' => '',
-        'field_table' => array(),
-        'field_form' => array(),
-        'field_rule' => array(),
-    );
     var $_unique = array();
     var $_foreign = true;
 
@@ -56,8 +32,6 @@ abstract class Base_controller extends Base_manager {
      */
     var $_field_search = array();
 
-    abstract function setting_class();
-
     public function __construct() {
         parent::__construct();
         $this->load->model($this->setting['model'], 'table');
@@ -72,13 +46,14 @@ abstract class Base_controller extends Base_manager {
     }
 
     public function index() {
+        $data_nav = $this->_get_nav_data();
         $head = $this->get_head();
         $header = $this->get_header();
-        $left_page = $this->get_left_page($this->_get_left_page_data());
-        $right_page = $this->get_right_page($this->setting);
-        $breadcrumbs = $this->get_breadcrumbs();
+        $nav = $this->get_nav($data_nav);
+        $content = $this->get_content($this->setting);
+        $breadcrumbs = $this->get_breadcrumbs($data_nav);
         $footer = $this->get_footer();
-        $this->master_page($head, $header, $left_page, $breadcrumbs, $right_page, $footer);
+        $this->master_page($head, $header, $nav, $breadcrumbs, $content, $footer);
     }
 
     public function manager() {
@@ -89,7 +64,7 @@ abstract class Base_controller extends Base_manager {
         
     }
 
-    public function _get_right_page_data($data = array()) {
+    public function _get_content_data($data = array()) {
         if (!$data) {
             $data = $this->session->userdata('display_table');
         }
