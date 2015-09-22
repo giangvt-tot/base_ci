@@ -68,7 +68,7 @@ abstract class Base_model extends CI_Model {
      * return [array]: trả về 1 array
      */
 
-    public function get_list($where = NULL, $limit = 0, $start = 0, $order = NULL, $like) {
+    public function get_list($where = NULL, $limit = 0, $start = 0, $order = NULL, $like = array()) {
         $this->setting_select();
         if (is_array($where)) {
             foreach ($where as $key => $value) {
@@ -92,7 +92,7 @@ abstract class Base_model extends CI_Model {
                 }
             }
         }
-        if ($limit) {
+        if ($limit && $limit > 0) {
             $this->db->limit($limit, $start);
         }
         if ($order) {
@@ -100,6 +100,39 @@ abstract class Base_model extends CI_Model {
         }
         $query = $this->db->get();
         return $query->result();
+    }
+
+    /*
+     * function: đếm số record thỏa mãn $where, $like
+     * @param $where-[int, array]: điều kiện để select.
+     * return [array]: trả về 1 int
+     */
+
+    public function get_count($where = NULL, $like = array()) {
+        if (is_array($where)) {
+            foreach ($where as $key => $value) {
+                if (is_array($value)) {
+                    $this->db->where_in($key, $value);
+                } else {
+                    $this->db->where($key, $value);
+                }
+            }
+        } else if (intval($where) > 0) {
+            $this->db->where("m." . $this->_key_name, $where);
+        }
+        if (is_array($like)) {
+            foreach ($like as $key_like => $value_like) {
+                if (is_array($value_like)) {
+                    foreach ($value_like as $field) {
+                        $this->db->or_like($field, $key_like);
+                    }
+                } else {
+                    $this->db->like($value_like, $key_like);
+                }
+            }
+        }
+        $this->db->from($this->_table);
+        return $this->db->count_all_results();
     }
 
     /**

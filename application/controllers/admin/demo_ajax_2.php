@@ -15,7 +15,7 @@ class Demo_ajax_2 extends CI_Controller {
             'recordsFiltered' => 57,
             'data' => array(
                 array('<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',
-                    'sdf', 'sdfs', 'gdfg', 'sdg', 'sdg', 
+                    'sdf', 'sdfs', 'gdfg', 'sdg', 'sdg',
                     '<div class="hidden-sm hidden-xs action-buttons text-center">
                                             <a class="blue" href="#">
                                                 <i class="ace-icon fa fa-search-plus bigger-130"></i>
@@ -63,17 +63,15 @@ class Demo_ajax_2 extends CI_Controller {
                                                 </ul>
                                             </div>
                                         </div>'
-                    ),
+                ),
                 array('', 'ssdfdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
                 array('', 'eehsdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
                 array('', 'dhdhjtsdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
                 array('', 'yjsdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
                 array('', 'fjjsdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
-                array('', 'fjysdf', 'sdfs', 'gdfg', 'sdg', 'sdg', ''),
-                
-                ),
+            ),
         );
-
+        $data_return['data'][6] = array('', 'aaa', 'sdfs', 'gdfg', 'sdg', 'sdg', '');
         echo json_encode($data_return);
     }
 

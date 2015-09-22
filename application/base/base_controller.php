@@ -20,7 +20,6 @@ abstract class Base_controller extends Base_manager {
     var $_display_table = array(
         'limit' => 10,
         'total_page' => 0,
-        'curent_page' => 0,
         'start' => 0,
         'search_string' => '',
         'begin_time' => '',
@@ -85,8 +84,55 @@ abstract class Base_controller extends Base_manager {
         return $data;
     }
 
-    public function ajax_list_data() {
+    public function ajax_list_data($data = array()) {
+        if (!$data) {
+            $data = $this->input->post();
+            $where = array();
+            $limit = $data['length'];
+            $start = $data['start'];
+            $order = NULL;
+            $like = $data['search']['value'];
+        } else {
+            $data = $this->session->userdata('display_table');
+            $where = array();
+            $limit = $data['limit'];
+            $start = $data['start'];
+            $order = NULL;
+            $like = $data['search_string'];
+        }
+        $query = $this->table->get_list($where, $limit, $start, $order, $like);
+        $temp = array();
+        $count_total = $this->table->get_count($where, $like);
+        $data_return = array(
+//            'draw' => $data['draw'],
+            'recordsTotal' => $count_total,
+            'recordsFiltered' => $count_total,
+        );
+
+        $i = 0;
+        //Lọc dữ liệu theo field_table để trả dữ liệu về sever
+        foreach ($query as $value) {
+            foreach ($this->setting['field_table'] as $key => $val) {
+                $temp[$i][$key] = $value->$key;
+            }
+            $i++;
+        }
+//        echo '<pre>';
+//        var_dump($temp);
+//        exit;
+        //Thêm ô checkbox + action vào mỗi bản ghi
+        foreach ($temp as $key => $value) {
+            $data_return['data'][$key][] = '<label class="pos-rel"><input type="checkbox" class="ace" data-id="' . $value['id'] . '" /><span class="lbl"></span></label>';
+            foreach ($value as $key2 => $val2) {
+                $data_return['data'][$key][] = $val2;
+            }
+            $data_return['data'][$key][] = $this->load->view($this->_view . '_action_table', array('data' => $value['id']), TRUE);
+        }
         
+        echo json_encode($data_return);
+//        echo '<pre>';
+//        var_dump($data_return);
+//        exit;
     }
 
     public function insert() {

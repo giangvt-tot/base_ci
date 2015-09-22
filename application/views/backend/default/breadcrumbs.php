@@ -1,3 +1,4 @@
+<?php // var_dump($text_method); echo $this->_method;exit; ?> 
 <!-- #section:basics/content.breadcrumbs -->
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
@@ -12,11 +13,14 @@
             <i class="ace-icon fa fa-home home-icon"></i>
             <a href="<?php echo site_url('admin'); ?>">Home</a>
         </li>
-
-        <li>
-            <a href="#"><?php echo ucfirst($text_class); ?></a>
-        </li>
-        <li class="active"><?php echo ucfirst($text_method); ?></li>
+        <?php if (isset($text_method)) { ?>
+            <li>
+                <a href = "#"><?php echo ucfirst($text_class); ?></a>
+            </li>
+            <li class="active"><?php echo ucfirst($text_method); ?></li>
+        <?php } else { ?>
+            <li class="active"><?php echo ucfirst($text_class); ?></li>
+        <?php } ?>
     </ul><!-- /.breadcrumb -->
 
     <!-- #section:basics/content.searchbox -->

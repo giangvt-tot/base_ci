@@ -93,7 +93,8 @@
             "serverSide": true,
 //            "ajax": "http://localhost/hoc-thanh-tai/admin/demo_ajax",
             "ajax": {
-                "url": "http://localhost/hoc-thanh-tai/admin/demo_ajax_2",
+//                "url": "http://localhost/hoc-thanh-tai/admin/demo_ajax_2",
+                "url": $('table#dynamic-table').attr('url-ajax'),
                 "type": "POST"
             },
             "columns": [
@@ -168,7 +169,7 @@
                     "sToolTip": "Print view",
                     "sButtonClass": "btn btn-white btn-primary  btn-bold",
                     "sButtonText": "<i class='fa fa-print bigger-110 grey'></i>",
-                    "sMessage": "<div class='navbar navbar-default'><div class='navbar-header pull-left'><a class='navbar-brand' href='#'><small>Optional Navbar &amp; Text</small></a></div></div>",
+                    "sMessage": "<div class='navbar navbar-default'><div class='navbar-header pull-left'><a class='navbar-brand' href='#'><small>Print preview</small></a></div></div>",
                     "sInfo": "<h3 class='no-margin-top'>Print view</h3>\
                                                           <p>Please use your browser's print function to\
                                                           print this table.\

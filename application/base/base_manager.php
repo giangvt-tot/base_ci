@@ -80,12 +80,12 @@ abstract class Base_manager extends CI_Controller {
     abstract function setting_class();
 
     public function index() {
-        $data_title = $this->_get_nav_data();
+        $data_nav = $this->_get_nav_data();
         $head = $this->get_head();
         $header = $this->get_header();
-        $nav = $this->get_nav($this->setting);
+        $nav = $this->get_nav($data_nav);
         $content = $this->get_content($this->setting);
-        $breadcrumbs = $this->get_breadcrumbs($data_title);
+        $breadcrumbs = $this->get_breadcrumbs($data_nav);
         $footer = $this->get_footer();
         $this->master_page($head, $header, $nav, $breadcrumbs, $content, $footer);
     }
@@ -164,7 +164,10 @@ abstract class Base_manager extends CI_Controller {
                 $data_return['text_class'] = $val['text'];
                 if (isset($val['child'])) {
                     foreach ($val['child'] as $key_child => $val_child) {
-                        $data_return['text_method'] = $val_child['method'] == $this->_method ? $val_child['text'] : '';
+                        $data_return['text_method'] = ($val_child['method'] == $this->_method) ? $val_child['text'] : '';
+                        if ($data_return['text_method'] != '') {
+                            break;
+                        }
                     }
                 }
             } else {
