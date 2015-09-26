@@ -1,9 +1,14 @@
-
-    
-
-        <form action="<?php echo site_url('admin/index/get_form'); ?>"  method="post">
-            <input name="name" type="text" placeholder="name"/>
-            <input name="email" type="text" placeholder="email"/>
-            <button type="submit">Submit</button>
-        </form>
- 
+<div class="row">
+    <div class="form-group col-md-5 col-xs-12">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+    <div class="form-group col-md-5 col-xs-12">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+    <div class="form-group col-md-5 col-xs-12">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email">
+    </div>
+</div>

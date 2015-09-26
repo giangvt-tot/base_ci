@@ -52,7 +52,8 @@ abstract class Base_controller extends Base_manager {
         $content = $this->get_content($this->setting);
         $breadcrumbs = $this->get_breadcrumbs($data_nav);
         $footer = $this->get_footer();
-        $this->master_page($head, $header, $nav, $breadcrumbs, $content, $footer);
+        $modal_form = $this->get_modal();
+        $this->master_page($head, $header, $nav, $breadcrumbs, $content, $footer, $modal_form);
     }
 
     public function manager() {
@@ -128,23 +129,51 @@ abstract class Base_controller extends Base_manager {
             }
             $data_return['data'][$key][] = $this->load->view($this->_view . '_action_table', array('data' => $value['id']), TRUE);
         }
-        
+
         echo json_encode($data_return);
 //        echo '<pre>';
 //        var_dump($data_return);
 //        exit;
     }
 
-    public function insert() {
+    public function ajax_form($data = array()) {
+        if (!$data) {
+            $data = $this->input->post();
+        }
+
+        //Kiểm tra dữ liệu gửi lên có đúng là 1 trong 3 action: insert, view, edit
+        if ($data['action'] == 'insert') {
+            $data_return = $this->insert($data);
+        } elseif ($data['action'] == 'view') {
+            
+        } elseif ($data['action'] == 'edit') {
+            
+        } else {
+            $data_return['status'] = 0;
+            $data_return['msg'] = 'Dữ liệu gửi lên không hợp lệ';
+        }
+
+        if (!isset($data_return['callback'])) {
+            $data_return['callback'] = 'custom_function';
+        }
+
+        echo json_encode($data_return);
+        return TRUE;
+    }
+
+    public function insert($data = array()) {
         $this->_action = site_url('admin/' . $this->_class . '/insert_save/');
-        echo $this->_action;
+        $data_return['status'] = 1;
+        $data_return['msg'] = 'hsuhgeks';
+        $data_return['url'] = $this->_action;
+        return $data_return;
     }
 
     public function insert_save() {
         
     }
 
-    public function delete() {
+    public function delete($data = array()) {
         
     }
 
@@ -152,11 +181,11 @@ abstract class Base_controller extends Base_manager {
         
     }
 
-    public function view() {
+    public function view($data = array()) {
         
     }
 
-    public function edit() {
+    public function edit($data = array()) {
         
     }
 
@@ -191,6 +220,11 @@ abstract class Base_controller extends Base_manager {
         }
         $data_return['status'] = 0;
         $data_return['msg'] = 'Dữ liệu đã tồn tại trong hệ thống.';
+        return $data_return;
+    }
+
+    public function get_modal($data = array()) {
+        $data_return = $this->load->view($this->_view . 'modal.php', $data, TRUE);
         return $data_return;
     }
 

@@ -145,8 +145,8 @@ abstract class Base_manager extends CI_Controller {
             'class' => 'user',
             'child' => array(
                 array(
-                    'text' => 'Đm đm',
-                    'url' => site_url('admin/user/demo'),
+                    'text' => 'Tạo mới thành viên',
+                    'url' => site_url('admin/user/ajax_form'),
                     'method' => 'demo',
                     'class_html' => 'e_ajax_link'
                 ),
@@ -202,7 +202,7 @@ abstract class Base_manager extends CI_Controller {
         return $data_return;
     }
 
-    public function master_page($head, $header, $nav, $breadcrumbs, $content, $footer) {
+    public function master_page($head, $header, $nav, $breadcrumbs, $content, $footer, $modal_form = NULL) {
         $data = array();
         $data['head'] = $head;
         $data['header'] = $header;
@@ -210,6 +210,7 @@ abstract class Base_manager extends CI_Controller {
         $data['breadcrumbs'] = $breadcrumbs;
         $data['content'] = $content;
         $data['footer'] = $footer;
+        $data['modal_form'] = $modal_form;
         $this->load->view($this->_view . 'master_page', $data);
     }
 

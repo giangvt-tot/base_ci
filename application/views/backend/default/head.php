@@ -120,8 +120,7 @@
 
         //initiate TableTools extension
         var tableTools_obj = new $.fn.dataTable.TableTools(oTable1, {
-            "sSwfPath": "<?php echo $this->_themes_lib; ?>/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf", //in Ace demo <?php echo $this->_themes_lib; ?> will be replaced by correct assets path
-
+            "sSwfPath": "<?php echo $this->_themes_lib; ?>/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
             "sRowSelector": "td:not(:last-child)",
             "sRowSelect": "multi",
             "fnRowSelected": function (row) {
@@ -324,4 +323,6 @@
 
 
 <!--My css + js-->
-<link rel="stylesheet" href="<?php echo $this->_themes_lib; ?>/css/style.css" />
+<link rel="stylesheet" href="<?php echo $this->_themes_custom; ?>/base/css/style.css" />
+<script src="<?php echo $this->_themes_custom; ?>/base/js/function.js"></script>
+<script src="<?php echo $this->_themes_custom; ?>/base/js/event.js"></script>

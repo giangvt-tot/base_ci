@@ -29,5 +29,8 @@
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
         </div><!-- /.main-container -->
+
+        <!--Modal bootstrap-->
+        <?php echo ($modal_form) ? $modal_form : ''; ?>
     </body>
 </html>

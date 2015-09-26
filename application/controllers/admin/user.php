@@ -21,7 +21,32 @@ class User extends Base_controller {
                 'phone' => 'Số điện thoại',
                 'age' => 'Tuổi'
             ),
-            'field_form' => array(),
+            'field_form' => array(
+                'Họ và tên' => array(
+                    'type' => 'text',
+                    'name' => 'name',
+                    'maxlength' => '255',
+                    'required' => 'required',
+                    'disable' => 'disable',
+                    'num_col' => 4
+                ),
+                'Họ và tên' => array(
+                    'type' => 'text',
+                    'name' => 'name',
+                    'maxlength' => '255',
+                    'required' => 'required',
+                    'disable' => 'disable',
+                    'num_col' => 4
+                ),
+                'Họ và tên' => array(
+                    'type' => 'text',
+                    'name' => 'name',
+                    'maxlength' => '255',
+                    'required' => 'required',
+                    'disable' => 'disable',
+                    'num_col' => 4
+                ),
+            ),
             'field_rule' => array()
         );
     }

@@ -16,7 +16,7 @@
                 <div class="pull-right tableTools-container"></div>
             </div>
             <div class="table-header">
-                Results for "Latest Registered Domains"
+                Results for "<?php echo isset($text_method) ? ucfirst($text_method) : ucfirst($text_class); ?>"
             </div>
 
             <!-- div.table-responsive -->
@@ -44,6 +44,5 @@
             </div>
         </div>
     </div>
-
-
+    
 </div><!-- /.page-content -->
