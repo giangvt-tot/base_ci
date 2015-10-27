@@ -1,4 +1,4 @@
-<?php // var_dump($text_method); echo $this->_method;exit; ?> 
+<?php // var_dump($text_method); echo $this->_method;exit;   ?> 
 <!-- #section:basics/content.breadcrumbs -->
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
@@ -15,7 +15,7 @@
         </li>
         <?php if (isset($text_method)) { ?>
             <li>
-                <a href = "#"><?php echo ucfirst($text_class); ?></a>
+                <a href = "<?php echo site_url('admin/' . $this->_class . '/' . $this->_method); ?>"><?php echo ucfirst($text_class); ?></a>
             </li>
             <li class="active"><?php echo ucfirst($text_method); ?></li>
         <?php } else { ?>
